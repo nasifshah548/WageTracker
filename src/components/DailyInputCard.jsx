@@ -5,13 +5,23 @@ const DailyInputCard = ({ onSubmit }) => {
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [hours, setHours] = useState("");
   const [rate, setRate] = useState("");
+  const [overtimeHours, setOvertimeHours] = useState("");
+  const [overtimeRate, setOvertimeRate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!hours || !rate) return;
-    onSubmit({ date, hours: Number(hours), rate: Number(rate) });
+    onSubmit({
+      date,
+      hours: Number(hours),
+      rate: Number(rate),
+      overtimeHours: Number(overtimeHours) || 0,
+      overtimeRate: Number(overtimeRate) || 0,
+    });
     setHours("");
     setRate("");
+    setOvertimeHours("");
+    setOvertimeRate("");
   };
 
   return (
@@ -69,6 +79,42 @@ const DailyInputCard = ({ onSubmit }) => {
             onChange={(e) => setRate(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
             placeholder="e.g. 25"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="overtimeHours"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Overtime Hourly Rate
+          </label>
+          <input
+            id="overtimeHours"
+            type="number"
+            min="0"
+            step="0.1"
+            value={overtimeHours}
+            onChange={(e) => setOvertimeHours(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
+            placeholder="e.g. 2"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="overtimeRate"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Overtime Hourly Rate ($)
+          </label>
+          <input
+            id="overtimeRate"
+            type="number"
+            min="0"
+            step="0.01"
+            value={overtimeRate}
+            onChange={(e) => setOvertimeRate(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
+            placeholder="e.g. 35"
           />
         </div>
         <div className="flex justify-center">

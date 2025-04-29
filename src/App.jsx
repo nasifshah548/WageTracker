@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DailyEntryForm from "./components/DailyEntryForm";
 import DailyInputCard from "./components/DailyInputCard";
 import WeeklySummary from "./pages/WeeklySummary";
 import MonthlySummary from "./pages/MonthlySummary";
@@ -13,9 +12,24 @@ function App() {
     setEntries(getAllEntries());
   }, []);
 
-  const handleSubmit = (dateStr, entry) => {
-    saveEntry(dateStr, entry);
-    setEntries((prev) => ({ ...prev, [dateStr]: entry }));
+  const handleSubmit = (entryData) => {
+    const {
+      date,
+      hours,
+      rate,
+      overtimeHours = 0,
+      overtimeRate = 0,
+    } = entryData;
+
+    const entry = {
+      hours,
+      rate,
+      overtimeHours,
+      overtimeRate,
+    };
+
+    saveEntry(date, entry);
+    setEntries((prev) => ({ ...prev, [date]: entry }));
   };
 
   return (
@@ -27,9 +41,7 @@ function App() {
 
         {/* Daily Input Section */}
         <div className="mb-6">
-          <DailyInputCard>
-            <DailyEntryForm onSubmit={handleSubmit} />
-          </DailyInputCard>
+          <DailyInputCard onSubmit={handleSubmit} />
         </div>
 
         {/* Weekly, Monthly & Yearly Summaries */}
