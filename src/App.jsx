@@ -20,17 +20,19 @@ function App() {
       overtimeHours = 0,
       overtimeRate = 0,
       breakMinutes = 0,
+      taxRate = 0, // Accept taxRate from the form
     } = entryData;
 
     // Subtract break time from hours (converted from minutes to hours)
     const adjustedHours = hours - breakMinutes / 60;
 
     const entry = {
-      hours: adjustedHours < 0 ? 0 : adjustedHours, // Ensure non-negative hours
+      hours: adjustedHours < 0 ? 0 : adjustedHours,
       rate,
       overtimeHours,
       overtimeRate,
       breakMinutes,
+      taxRate, // Include taxRate in the entry
     };
 
     saveEntry(date, entry);
