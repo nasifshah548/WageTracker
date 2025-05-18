@@ -8,6 +8,7 @@ const YearlySummary = ({ entries }) => {
   let totalEarnings = 0;
   let totalHours = 0;
   let totalBreakMinutes = 0;
+  let totalTaxPaid = 0;
 
   Object.entries(entries).forEach(
     ([
@@ -18,13 +19,18 @@ const YearlySummary = ({ entries }) => {
         overtimeHours = 0,
         overtimeRate = 0,
         breakMinutes = 0,
+        taxRate = 0,
       },
     ]) => {
       const entryDate = parseISO(dateStr);
       if (isSameYear(entryDate, today)) {
+        const dailyEarnings = hours * rate + overtimeHours * overtimeRate;
+        const dailyTax = (dailyEarnings * taxRate) / 100;
+
         totalHours += hours + overtimeHours;
-        totalEarnings += hours * rate + overtimeHours * overtimeRate;
+        totalEarnings += dailyEarnings;
         totalBreakMinutes += breakMinutes;
+        totalTaxPaid += dailyTax;
       }
     }
   );
@@ -54,6 +60,12 @@ const YearlySummary = ({ entries }) => {
             {breakHours > 0
               ? `${breakHours}h ${breakRemainingMinutes}m`
               : `${breakRemainingMinutes}m`}
+          </p>
+        </div>
+        <div>
+          <p className="text-lg">Tax Paid:</p>
+          <p className="text-2xl font-semibold text-red-600">
+            ${totalTaxPaid.toFixed(2)}
           </p>
         </div>
       </div>

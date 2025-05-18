@@ -6,6 +6,7 @@ const DailyEntryForm = ({ onSubmit }) => {
   const [overtimeHours, setOvertimeHours] = useState("");
   const [overtimeRate, setOvertimeRate] = useState("");
   const [breakMinutes, setBreakMinutes] = useState("");
+  const [taxRate, setTaxRate] = useState(""); // New state
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const handleSubmit = (e) => {
@@ -17,6 +18,7 @@ const DailyEntryForm = ({ onSubmit }) => {
       overtimeHours: Number(overtimeHours) || 0,
       overtimeRate: Number(overtimeRate) || 0,
       breakMinutes: Number(breakMinutes) || 0,
+      taxRate: Number(taxRate) || 0, // Include tax rate
     };
 
     onSubmit(date, entry);
@@ -27,6 +29,7 @@ const DailyEntryForm = ({ onSubmit }) => {
     setOvertimeHours("");
     setOvertimeRate("");
     setBreakMinutes("");
+    setTaxRate(""); // Reset tax rate
   };
 
   return (
@@ -99,6 +102,18 @@ const DailyEntryForm = ({ onSubmit }) => {
           type="number"
           value={breakMinutes}
           onChange={(e) => setBreakMinutes(e.target.value)}
+          className="w-full border border-gray-300 rounded px-3 py-2"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Income Tax Rate (%)
+        </label>
+        <input
+          type="number"
+          value={taxRate}
+          onChange={(e) => setTaxRate(e.target.value)}
           className="w-full border border-gray-300 rounded px-3 py-2"
         />
       </div>

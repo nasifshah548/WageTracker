@@ -6,6 +6,7 @@ const MonthlySummary = ({ entries }) => {
   let totalHours = 0;
   let totalEarnings = 0;
   let totalBreakMinutes = 0;
+  let totalTaxPaid = 0;
 
   Object.entries(entries).forEach(
     ([
@@ -16,13 +17,18 @@ const MonthlySummary = ({ entries }) => {
         overtimeHours = 0,
         overtimeRate = 0,
         breakMinutes = 0,
+        taxRate = 0,
       },
     ]) => {
       const date = parseISO(dateStr);
       if (isSameMonth(date, today)) {
+        const dailyEarnings = hours * rate + overtimeHours * overtimeRate;
+        const dailyTax = (dailyEarnings * taxRate) / 100;
+
         totalHours += hours + overtimeHours;
-        totalEarnings += hours * rate + overtimeHours * overtimeRate;
+        totalEarnings += dailyEarnings;
         totalBreakMinutes += breakMinutes;
+        totalTaxPaid += dailyTax;
       }
     }
   );
@@ -42,6 +48,12 @@ const MonthlySummary = ({ entries }) => {
         {breakHours > 0
           ? `${breakHours}h ${breakRemainingMinutes}m`
           : `${breakRemainingMinutes}m`}
+      </p>
+      <p className="text-gray-700 font-medium">
+        Tax Paid:{" "}
+        <span className="text-red-600 font-semibold">
+          ${totalTaxPaid.toFixed(2)}
+        </span>
       </p>
       <p className="mt-2">
         Total Earnings:{" "}
