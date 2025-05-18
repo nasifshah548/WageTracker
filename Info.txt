@@ -102,7 +102,8 @@ This project is open-source and available under the MIT License.
 
 /* 
 
-Excellent choice — purple evokes luxury, power, and reward, which fits perfectly for highlighting total yearly earnings. It reinforces a sense of accomplishment and growth over time. 
+Excellent choice — purple evokes luxury, power, and reward, which fits perfectly for highlighting total yearly earnings. 
+It reinforces a sense of accomplishment and growth over time. 
 
 Your app now conveys a powerful visual message:
 🟢 Weekly = Progress, 🔵 Monthly = Stability, 🟣 Yearly = Royal Results.

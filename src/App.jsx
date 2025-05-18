@@ -19,13 +19,18 @@ function App() {
       rate,
       overtimeHours = 0,
       overtimeRate = 0,
+      breakMinutes = 0,
     } = entryData;
 
+    // Subtract break time from hours (converted from minutes to hours)
+    const adjustedHours = hours - breakMinutes / 60;
+
     const entry = {
-      hours,
+      hours: adjustedHours < 0 ? 0 : adjustedHours, // Ensure non-negative hours
       rate,
       overtimeHours,
       overtimeRate,
+      breakMinutes,
     };
 
     saveEntry(date, entry);

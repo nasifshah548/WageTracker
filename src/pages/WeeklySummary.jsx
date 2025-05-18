@@ -14,19 +14,31 @@ const WeeklySummary = ({ entries }) => {
 
   let totalHours = 0;
   let totalEarnings = 0;
+  let totalBreakMinutes = 0;
 
   Object.entries(entries).forEach(
     ([
       dateStr,
-      { hours = 0, rate = 0, overtimeHours = 0, overtimeRate = 0 },
+      {
+        hours = 0,
+        rate = 0,
+        overtimeHours = 0,
+        overtimeRate = 0,
+        breakMinutes = 0,
+      },
     ]) => {
       const date = parseISO(dateStr);
       if (isWithinInterval(date, { start: weekStart, end: weekEnd })) {
         totalHours += hours + overtimeHours;
         totalEarnings += hours * rate + overtimeHours * overtimeRate;
+        totalBreakMinutes += breakMinutes;
       }
     }
   );
+
+  // Convert break minutes to hours and minutes
+  const breakHours = Math.floor(totalBreakMinutes / 60);
+  const breakRemainingMinutes = totalBreakMinutes % 60;
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl mx-auto">
@@ -34,8 +46,16 @@ const WeeklySummary = ({ entries }) => {
       <p className="text-gray-600 mb-1">
         Week: {format(weekStart, "MMM d")} – {format(weekEnd, "MMM d, yyyy")}
       </p>
-      <p className="text-gray-700 font-medium">Total Hours: {totalHours}</p>
-      <p>
+      <p className="text-gray-700 font-medium">
+        Total Hours Worked: {totalHours}
+      </p>
+      <p className="text-gray-700 font-medium">
+        Break Time Taken:{" "}
+        {breakHours > 0
+          ? `${breakHours}h ${breakRemainingMinutes}m`
+          : `${breakRemainingMinutes}m`}
+      </p>
+      <p className="mt-2">
         Total Earnings:{" "}
         <span className="text-green-600 font-bold text-lg">
           ${totalEarnings.toFixed(2)}

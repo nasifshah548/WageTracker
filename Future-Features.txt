@@ -106,8 +106,75 @@ Feature Type						Purpose
 Would you like me to help you prioritize this list into a Phase 1 vs Phase 2 roadmap for development?
 
 
+🔧 Functional Enhancements
 
+1. Editable Entries
 
+- Allow users to view a list of past entries and edit or delete them.
+- Bonus: Show a calendar view with entry summaries on each date.
 
+2. Multiple Job Support 
 
+- Let users track different job roles (e.g., Job A, Job B).
+- Filter summaries by job.
 
+3. Break Time Deduction 
+
+- Add optional break time per entry that subtracts from total hours.
+
+4. Category Tags 
+
+- Users can tag entries with types like remote, onsite, freelance, etc. 
+- Use tags to group and analyze work types. 
+
+5. PDF/CSV Export 
+
+- Allow users to download their monthly/yearly summaries in PDF or CSV format for reports or taxes.
+
+6. Notifications 
+
+- Set reminders for users to input their work hours daily or weekly.
+
+ 🎨 UI/UX Enhancements
+
+1. Dark Mode Toggle 
+
+- Tailwind makes this easy using dark: variants.
+
+2. Dashboard Chart Visuals 
+
+- Use a chart library like Recharts or Chart.js to display:
+	-> Weekly bar charts of hours 
+	-> Monthly earnings trend line 
+
+3. Mobile-first Enhancements 
+
+	-> Ensure form usability and card readability are optimized for small screens.
+	-> Use Tailwind's responsive classes to adjust layout dynamically.
+
+☁️ Data & Auth (Advanced Features)
+
+1. User Accounts + Firebase Auth 
+
+- Allow users to create accounts and sync data.
+- Great if you want to move from localStorage to cloud-based persistence.
+
+2. Cloud Storage 
+
+- Move from localStorage to Firebase Realtime DB or Firestore.
+- Sync across devices 
+
+3. Backup & Restore 
+
+- Export/import data via JSON or cloud sync for peace of mind. 
+
+🧠 Intelligent Additions
+
+1. Smart Suggestions 
+
+- Auto-suggest rate or hours based on past days.
+- Predict weekly/monthly totals and alert users if they're below a target.
+
+2. Goal Tracker 
+
+- Let users set weekly and monthly earning goals and track progress visually. 

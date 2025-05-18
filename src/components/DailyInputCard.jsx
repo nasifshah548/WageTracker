@@ -7,21 +7,26 @@ const DailyInputCard = ({ onSubmit }) => {
   const [rate, setRate] = useState("");
   const [overtimeHours, setOvertimeHours] = useState("");
   const [overtimeRate, setOvertimeRate] = useState("");
+  const [breakMinutes, setBreakMinutes] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!hours || !rate) return;
+
     onSubmit({
       date,
       hours: Number(hours),
       rate: Number(rate),
       overtimeHours: Number(overtimeHours) || 0,
       overtimeRate: Number(overtimeRate) || 0,
+      breakMinutes: Number(breakMinutes) || 0,
     });
+
     setHours("");
     setRate("");
     setOvertimeHours("");
     setOvertimeRate("");
+    setBreakMinutes("");
   };
 
   return (
@@ -30,6 +35,7 @@ const DailyInputCard = ({ onSubmit }) => {
         Daily Work Entry
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Date Input */}
         <div>
           <label
             htmlFor="date"
@@ -45,6 +51,8 @@ const DailyInputCard = ({ onSubmit }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
           />
         </div>
+
+        {/* Hours Input */}
         <div>
           <label
             htmlFor="hours"
@@ -63,6 +71,8 @@ const DailyInputCard = ({ onSubmit }) => {
             placeholder="e.g. 8"
           />
         </div>
+
+        {/* Rate Input */}
         <div>
           <label
             htmlFor="rate"
@@ -78,15 +88,17 @@ const DailyInputCard = ({ onSubmit }) => {
             value={rate}
             onChange={(e) => setRate(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
-            placeholder="e.g. 25"
+            placeholder="e.g. 20"
           />
         </div>
+
+        {/* Overtime Hours Input */}
         <div>
           <label
             htmlFor="overtimeHours"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Overtime Hourly Rate
+            Overtime Hours
           </label>
           <input
             id="overtimeHours"
@@ -99,12 +111,14 @@ const DailyInputCard = ({ onSubmit }) => {
             placeholder="e.g. 2"
           />
         </div>
+
+        {/* Overtime Rate Input */}
         <div>
           <label
             htmlFor="overtimeRate"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Overtime Hourly Rate ($)
+            Overtime Rate ($)
           </label>
           <input
             id="overtimeRate"
@@ -114,9 +128,31 @@ const DailyInputCard = ({ onSubmit }) => {
             value={overtimeRate}
             onChange={(e) => setOvertimeRate(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
-            placeholder="e.g. 35"
+            placeholder="e.g. 30"
           />
         </div>
+
+        {/* Break Time Input */}
+        <div>
+          <label
+            htmlFor="breakMinutes"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Break Time (minutes)
+          </label>
+          <input
+            id="breakMinutes"
+            type="number"
+            min="0"
+            step="1"
+            value={breakMinutes}
+            onChange={(e) => setBreakMinutes(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
+            placeholder="e.g. 30"
+          />
+        </div>
+
+        {/* Submit Button */}
         <div className="flex justify-center">
           <button
             type="submit"
